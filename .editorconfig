@@ -1,0 +1,43 @@
+# Define coding styles for editors.
+# See https://editorconfig.org/#file-format-details
+# See https://github.com/editorconfig/editorconfig/wiki/EditorConfig-Properties
+
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+indent_size = 2
+indent_style = space
+insert_final_newline = true
+max_line_length = 120
+trim_trailing_whitespace = true
+
+[*.py]
+indent_size = 4
+indent_style = space
+
+[*.{css,html,js,scss}]
+indent_size = 2
+indent_style = space
+
+[*.{json,yml}]
+indent_size = 2
+indent_style = space
+
+[*.md]
+indent_size = 4
+indent_style = space
+trim_trailing_whitespace = false
+
+[*.{diff,rst}]
+indent_size = 4
+indent_style = space
+
+[*.csv]  # For tab-separated files.
+indent_size = 50
+indent_style = tab
+
+[Makefile]
+indent_size = 4
+indent_style = tab
