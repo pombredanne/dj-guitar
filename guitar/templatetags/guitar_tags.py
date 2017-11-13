@@ -40,10 +40,9 @@ def body_class_tag(context, **kwargs):
 
 
 @register.simple_tag(name="set", takes_context=True)
-def set_tag(context, name, value):
+def set_tag(context, value):
     """Allow to define a variable directly in a template."""
-    context[name] = value
-    return ""
+    return value
 
 
 @register.simple_tag(name="settings")
