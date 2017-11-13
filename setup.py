@@ -1,23 +1,11 @@
 #!/usr/bin/env python
 import os
-import re
 import sys
 
 try:
     from setuptools import setup
 except ImportError:
     from distutils.core import setup
-
-
-def get_version(*file_paths):
-    """Retrieves the version from guitar/__init__.py"""
-    filename = os.path.join(os.path.dirname(__file__), *file_paths)
-    version_file = open(filename).read()
-    version_match = re.search(r"^__version__ = ['\"]([^'\"]*)['\"]",
-                              version_file, re.M)
-    if version_match:
-        return version_match.group(1)
-    raise RuntimeError("Unable to find version string.")
 
 
 version = "0.1.0"
@@ -40,6 +28,7 @@ if sys.argv[-1] == "tag":
     os.system("git push --tags")
     sys.exit()
 
+
 readme = open("README.rst").read()
 history = open("HISTORY.rst").read().replace(".. :changelog:", "")
 
@@ -51,14 +40,20 @@ setup(
     author="Pascal Polleunus",
     author_email="pascal@myrty.be",
     url="https://github.com/ppo/dj-guitar",
-    packages=[
-        "guitar",
-    ],
+    packages=["guitar"],
     include_package_data=True,
-    install_requires=[],
+    python_requires=">=3.5",
+
+    # List run-time dependencies here. These will be installed by pip when your project is installed.
+    # For an analysis of "install_requires" vs pip's requirements files see:
+    # https://packaging.python.org/en/latest/requirements.html
+    install_requires=[
+        "django>=1.10",
+        "django-model-utils>=3.0.0",
+    ],
     license="MIT",
     zip_safe=False,
-    keywords="dj-guitar",
+    keywords="django components dj-guitar",
     classifiers=[
         "Development Status :: 4 - Beta",
         "Framework :: Django",

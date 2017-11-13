@@ -1,2 +1,2 @@
-django>=1.10
-django-model-utils>=3.0.0
+# See `install_requires` in `setup.py`.
+-e .

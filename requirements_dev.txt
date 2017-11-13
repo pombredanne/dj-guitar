@@ -1,4 +1,6 @@
-bumpversion==0.5.3
-django-model-utils>=3.0.0
-twine==1.9.1
-wheel==0.30.0
+-r requirements.txt
+
+bumpversion>=0.5.3
+sphinx>=1.6.5
+twine>=1.9.1
+wheel>=0.30.0

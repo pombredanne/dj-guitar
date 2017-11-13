@@ -2,7 +2,7 @@
 
 """
 test_dj_guitar
-------------
+--------------
 
 Tests for `dj-guitar` middlewares module.
 """

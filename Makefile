@@ -28,7 +28,8 @@ clean-pyc: ## remove Python file artifacts
 	find . -name '*~' -exec rm -f {} +
 
 clean-test: ## remove test artifacts
-	rm -fr .tox/
+	rm -fr .tox/ htmlcov/
+	find . -name '.coverage' -exec rm -f {} +
 
 lint: ## check style with flake8
 	flake8 guitar tests
