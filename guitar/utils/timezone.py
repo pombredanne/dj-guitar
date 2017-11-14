@@ -3,7 +3,7 @@
 # from datetime import datetime
 # from django.utils.dateformat import format as format_date
 #
-# COMMON_TIME_ZONE_CHOICES = []
+# COMMON_TIME_ZONES = []
 # for tz in pytz.common_timezones:
 #     if tz == "GMT":  # Skip GMT as there's also UTC, which is preferred.
 #         continue
@@ -14,11 +14,11 @@
 #         now=format_date(local_now, "H:i"),
 #         offset=offset[:3] + ":" + offset[3:]
 #     )
-#     COMMON_TIME_ZONE_CHOICES.append((tz, label))
+#     COMMON_TIME_ZONES.append((tz, label))
 
 
 # From Google Calendar
-COMMON_TIME_ZONE_CHOICES = (
+COMMON_TIME_ZONES = (
     ("Pacific/Niue", "(GMT-11:00) Niue"),
     ("Pacific/Pago_Pago", "(GMT-11:00) Pago Pago"),
     ("Pacific/Honolulu", "(GMT-10:00) Hawaii Time"),
