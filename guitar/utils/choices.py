@@ -1,4 +1,6 @@
+from django.db import models
 from django.utils.deconstruct import deconstructible
+from django.utils.functional import curry
 from django.utils.translation import ugettext_lazy as _
 
 from model_utils import Choices as ModelUtilsChoices
@@ -59,3 +61,18 @@ class Choices(ModelUtilsChoices):
             if k == key:
                 return human_key
         raise KeyError(key)
+
+
+class ChoiceModelField(models.PositiveSmallIntegerField):
+    """A model field for ``django-model-utils.Choice`` (small integer triplets)."""
+
+    description = _("Choice")
+
+    def __init__(self, choices, **kwargs):
+        kwargs["choices"] = choices
+        kwargs.setdefault("db_index", True)
+        super().__init__(**kwargs)
+
+    def contribute_to_class(self, cls, name, *args, **kwargs):
+        super().contribute_to_class(cls, name, *args, **kwargs)
+        setattr(cls, "get_{}_human_key".format(name), curry(cls._get_FIELD_human_key, field=self))
