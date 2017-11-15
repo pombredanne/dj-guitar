@@ -40,23 +40,31 @@ class Choices(ModelUtilsChoices):
         - Choices(("database-value", "Human-readable presentation"))
         - Choices(("database-value", "PythonIdentifier", "Human-readable presentation"))
 
+    Choice properties:
+        - ``_doubles``: List of choices as (database value, human-readable presentation) - can include optgroups.
+          Example: [("database-value", "Human-readable presentation")]
+        - ``_identifier_map``: Dictionary mapping Python identifier to database value.
+          Example: {"PythonIdentifier": "database-value"}
+
     Terminology:
         - key = database value
         - human key = Python identifier
+
+    Source: https://github.com/jazzband/django-model-utils/blob/3.0.0/model_utils/choices.py
     """
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # ``_doubles``: List of choices as (database value, human-readable presentation) - can include optgroups.
-        # Example: [("database-value", "Human-readable presentation")]
-        # Source: https://github.com/jazzband/django-model-utils/blob/3.0.0/model_utils/choices.py#L49
         self.validator = ChoicesValidator(self._doubles)
+
+    def get_from_human_key(self, key):
+        """Return the key (aka database value) of a human key (aka Python identifier)."""
+        if key in self._identifier_map:
+            return self._identifier_map[key]
+        raise KeyError(key)
 
     def get_human_key(self, key):
         """Return the human key (aka Python identifier) of a key (aka database value)."""
-        # ``_identifier_map``: Dictionary mapping Python identifier to database value.
-        # Example: {"PythonIdentifier": "database-value"}
-        # Source: https://github.com/jazzband/django-model-utils/blob/3.0.0/model_utils/choices.py#L53
         for human_key, k in self._identifier_map.items():
             if k == key:
                 return human_key
