@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.utils.text import capfirst
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext_lazy as _  # , pgettext_lazy as __
 
 
 class BaseModelAdmin(admin.ModelAdmin):
@@ -18,3 +18,4 @@ class BaseModelAdmin(admin.ModelAdmin):
         }],
     ]
     readonly_fields = ["id"]
+    empty_value_display = ""  # __("admin empty value", "(empty)")
