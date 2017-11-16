@@ -81,6 +81,19 @@ class ChoiceModelField(models.PositiveSmallIntegerField):
         kwargs.setdefault("db_index", True)
         super().__init__(**kwargs)
 
-    def contribute_to_class(self, cls, name, *args, **kwargs):
-        super().contribute_to_class(cls, name, *args, **kwargs)
-        setattr(cls, "get_{}_human_key".format(name), curry(cls._get_FIELD_human_key, field=self))
+    # @TODO: See also `GetHumanKeyMixin._get_FIELD_human_key`
+    # def contribute_to_class(self, cls, name, *args, **kwargs):
+    #     """Add to the model an helper method to get the human key of this field."""
+    #     super().contribute_to_class(cls, name, *args, **kwargs)
+    #     setattr(cls, "get_{}_human_key".format(name), curry(cls._get_FIELD_human_key, field=self))
+
+
+class GetHumanKeyMixin(object):
+
+    def get_human_key(self, fieldname):
+        field = self._meta.get_field(fieldname)
+        return field.choices.get_human_key(getattr(self, fieldname))
+
+    # @TODO: See also `ChoiceModelField.contribute_to_class`
+    # def _get_FIELD_human_key(self, field):
+    #     return field.choices.get_human_key(getattr(self, field.attname))

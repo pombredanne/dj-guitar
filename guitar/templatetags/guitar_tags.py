@@ -12,6 +12,26 @@ from ..utils import static_url
 register = template.Library()
 
 
+# FILTERS =====================================================================
+# Best practice: Name all functions for filters with a suffix "_filter".
+
+@register.filter(name="human_key")
+def human_key_filter(obj, fieldname):
+    """
+    Return the human key of a ``Choices`` field.
+
+    Usage: ``{{ obj|human_key:"fieldname" }}``
+    Example:
+        With ``Foo.STATUSES = Choices((1, "OPEN", "Open"), (2, "CLOSED", "Closed"))``
+        and ``Foo.status = ChoiceField(Foo.STATUSES)``.
+        If ``foo.status = 1`` (i.e. ``Foo.STATUSES.OPEN``), returns ``Open``.
+    """
+    return obj.get_human_key(fieldname)
+
+
+# TAGS ========================================================================
+# Best practice: Name all functions for tags with a suffix "_tag".
+
 @register.simple_tag(name="body_class", takes_context=True)
 def body_class_tag(context):
     """
